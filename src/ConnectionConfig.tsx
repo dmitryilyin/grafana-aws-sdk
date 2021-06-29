@@ -1,8 +1,9 @@
 import React, { FC, useEffect, useState } from 'react';
-import { Input, Select, InlineField, ButtonGroup, ToolbarButton, FieldSet } from '@grafana/ui';
+import { Input, Select, Switch, InlineField, ButtonGroup, ToolbarButton, FieldSet } from '@grafana/ui';
 import {
   DataSourcePluginOptionsEditorProps,
   onUpdateDatasourceJsonDataOptionSelect,
+  onUpdateDatasourceJsonDataOptionChecked,
   onUpdateDatasourceResetOption,
   onUpdateDatasourceJsonDataOption,
   onUpdateDatasourceSecureJsonDataOption,
@@ -193,6 +194,31 @@ export const ConnectionConfig: FC<ConnectionConfigProps> = (props: ConnectionCon
           formatCreateLabel={(r) => `Use region: ${r}`}
         />
       </InlineField>
+
+      <InlineField
+        label="Proxy Enabled"
+        labelWidth={28}
+       tooltip="Enable or disable the HTTP Proxy server"
+      >
+        <Switch
+          checked={!!options.jsonData.proxyEnabled}
+          onChange={onUpdateDatasourceJsonDataOptionChecked(props, 'proxyEnabled')}
+        />
+      </InlineField>
+
+      <InlineField
+        label="Proxy URL"
+        labelWidth={28}
+       tooltip="Input the URL of the HTTP Proxy server"
+      >
+        <Input
+          className="width-30"
+          placeholder="http://127.0.0.1:3128"
+          value={options.jsonData.proxyURL || ''}
+          onChange={onUpdateDatasourceJsonDataOption(props, 'proxyURL')}
+        />
+      </InlineField>
+
       {props.children}
     </FieldSet>
   );
