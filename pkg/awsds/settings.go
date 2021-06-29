@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
+	"net/http"
 
 	"github.com/grafana/grafana-plugin-sdk-go/backend"
 )
@@ -100,6 +101,9 @@ type AWSDatasourceSettings struct {
 	// Loaded from DecryptedSecureJSONData (not the json object)
 	AccessKey string `json:"-"`
 	SecretKey string `json:"-"`
+
+    // Optionally pass the link to an http.Client object
+	HTTPClient *http.Client
 }
 
 // LoadSettings will read and validate Settings from the DataSourceConfg

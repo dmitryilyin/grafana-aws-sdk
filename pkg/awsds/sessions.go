@@ -163,6 +163,10 @@ func (sc *SessionCache) GetSession(region string, s AWSDatasourceSettings) (*ses
 		cfgs = append(cfgs, &aws.Config{Endpoint: aws.String(s.Endpoint)})
 	}
 
+	if s.HTTPClient != nil {
+		cfgs = append(cfgs, &aws.Config{HTTPClient: s.HTTPClient})
+	}
+
 	switch s.AuthType {
 	case AuthTypeSharedCreds:
 		plog.Debug("Authenticating towards AWS with shared credentials", "profile", s.Profile,
